@@ -23,5 +23,29 @@ public class MedicalController {
         return "welcome";
     }
 
+    @PostMapping("/createPerson")
+    public String createPerson(@RequestBody MedicalDetails medicalDetails){
+        return medicalService.createPerson(medicalDetails);
+    }
+
+
+    @GetMapping("/getAll")
+    public List<MedicalDetails> getAllDetails(){
+        return medicalService.getAllDetails();
+    }
+
+    @DeleteMapping("/deleteById/{id}")
+    public String deleteById(@PathVariable String id){
+        return medicalService.deleteById(id);
+    }
+
+    @PutMapping("updateSolutionsById/{id}")
+    public int updateSolutions(@PathVariable String id, @RequestBody List<MedicalSolutions> solutions){
+        return medicalService.updateSolutions(id, solutions);
+    }
     
+    @PutMapping("addSolutionsById/{id}")
+    public int addSolutions(@PathVariable String id, @RequestBody List<MedicalSolutions> solutions ){
+        return medicalService.addSolutions(id, solutions);
+    }
 }
