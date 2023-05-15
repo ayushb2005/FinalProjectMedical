@@ -11,6 +11,8 @@ public class MedicalService {
     @Autowired
     MedicalRepository medicalRepository;
 
+   // public Map<String, MedicalSolutions> hMao;
+
     public String createPerson(MedicalDetails medicalDetails){
         medicalRepository.save(medicalDetails);
         return "Person created";
@@ -69,5 +71,6 @@ public class MedicalService {
         }
         return 200;
     }
+
     
 }
