@@ -39,13 +39,13 @@ public class MedicalController {
         return medicalService.deleteById(id);
     }
 
-    @PutMapping("updateSolutionsById/{id}")
-    public int updateSolutions(@PathVariable String id, @RequestBody List<MedicalSolutions> solutions){
-        return medicalService.updateSolutions(id, solutions);
-    }
+    // @PutMapping("updateSolutionsById/{id}")
+    // public int updateSolutions(@PathVariable String id, @RequestBody List<MedicalSolutions> solutions){
+    //     return medicalService.updateSolutions(id, solutions);
+    // }
     
-    @PutMapping("addSolutionsById/{id}")
-    public int addSolutions(@PathVariable String id, @RequestBody List<MedicalSolutions> solutions ){
-        return medicalService.addSolutions(id, solutions);
-    }
+    // @PutMapping("addSolutionsById/{id}")
+    // public int addSolutions(@PathVariable String id, @RequestBody List<MedicalSolutions> solutions ){
+    //     return medicalService.addSolutions(id, solutions);
+    // }
 }

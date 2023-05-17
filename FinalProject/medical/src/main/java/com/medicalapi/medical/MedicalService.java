@@ -1,4 +1,5 @@
 package com.medicalapi.medical;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,8 +13,18 @@ public class MedicalService {
     MedicalRepository medicalRepository;
 
    // public Map<String, MedicalSolutions> hMao;
-
+    //solutions will be empty neeed to get from db first index
     public String createPerson(MedicalDetails medicalDetails){
+        MedicalDetails.solutions();
+        for (String key: medicalDetails.getSymRes().keySet()) {
+            if(medicalDetails.getSymRes().get(key).equals(null)){
+                for(int i = 0; i<MedicalDetails.solutions.size();i++){
+                    if(key.equals(MedicalDetails.solutions.get(i).getName())){
+                        medicalDetails.getSymRes().put(key,MedicalDetails.solutions.get(i));
+                    }
+                }
+            }
+        }
         medicalRepository.save(medicalDetails);
         return "Person created";
     }
@@ -45,32 +56,32 @@ public class MedicalService {
     //     return "";
     // }
     
-    public int updateSolutions(String id, List<MedicalSolutions> solutions){
-        Optional < MedicalDetails > medicalDb = medicalRepository.findById(id);
-        if(medicalDb.isPresent()){
-            MedicalDetails update = medicalDb.get();
-            update.setSolutions(solutions);
-            medicalRepository.save(update);
-        }else{
-            return 400;
-        }
-        return 200;
-    }
+    // public int updateSolutions(String id, List<MedicalSolutions> solutions){
+    //     Optional < MedicalDetails > medicalDb = medicalRepository.findById(id);
+    //     if(medicalDb.isPresent()){
+    //         MedicalDetails update = medicalDb.get();
+    //         update.setSolutions(solutions);
+    //         medicalRepository.save(update);
+    //     }else{
+    //         return 400;
+    //     }
+    //     return 200;
+    // }
 
-    public int addSolutions(String id, List<MedicalSolutions> solutions){
-        Optional < MedicalDetails > medicalDb = medicalRepository.findById(id);
-        if(medicalDb.isPresent()){
-            MedicalDetails update = medicalDb.get();
-            for(int i =0; i<solutions.size();i++){
-                update.getSolutions().add(solutions.get(i));
-            }
-            update.setSolutions(update.getSolutions());
-            medicalRepository.save(update);
-        }else{
-            return 400;
-        }
-        return 200;
-    }
+    // public int addSolutions(String id, List<MedicalSolutions> solutions){
+    //     Optional < MedicalDetails > medicalDb = medicalRepository.findById(id);
+    //     if(medicalDb.isPresent()){
+    //         MedicalDetails update = medicalDb.get();
+    //         for(int i =0; i<solutions.size();i++){
+    //             update.getSolutions().add(solutions.get(i));
+    //         }
+    //         update.setSolutions(update.getSolutions());
+    //         medicalRepository.save(update);
+    //     }else{
+    //         return 400;
+    //     }
+    //     return 200;
+    // }
 
     
 }

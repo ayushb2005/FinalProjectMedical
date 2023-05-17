@@ -5,6 +5,11 @@ public class MedicalSolutions {
     private String description;
     private String treatment;
 
+    public MedicalSolutions(String name, String description, String treatment){
+        this.name = name;
+        this.description = description;
+        this.treatment = treatment;
+    }
 
     public String getName()
     {
