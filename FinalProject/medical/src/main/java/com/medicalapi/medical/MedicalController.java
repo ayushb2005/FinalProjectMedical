@@ -1,6 +1,10 @@
 package com.medicalapi.medical;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +28,7 @@ public class MedicalController {
     }
 
     @PostMapping("/createPerson")
-    public String createPerson(@RequestBody MedicalDetails medicalDetails){
+    public int createPerson(@RequestBody MedicalDetails medicalDetails){
         return medicalService.createPerson(medicalDetails);
     }
 
@@ -35,17 +39,21 @@ public class MedicalController {
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public String deleteById(@PathVariable String id){
+    public int deleteById(@PathVariable String id){
         return medicalService.deleteById(id);
     }
 
-    // @PutMapping("updateSolutionsById/{id}")
-    // public int updateSolutions(@PathVariable String id, @RequestBody List<MedicalSolutions> solutions){
-    //     return medicalService.updateSolutions(id, solutions);
-    // }
+    @GetMapping("/getById/{id}")
+    public MedicalDetails findPersonById(@PathVariable String id){
+        return medicalService.findPersonById(id);
+    }
     
-    // @PutMapping("addSolutionsById/{id}")
-    // public int addSolutions(@PathVariable String id, @RequestBody List<MedicalSolutions> solutions ){
-    //     return medicalService.addSolutions(id, solutions);
-    // }
+    @PutMapping("/deleteSymptomById")
+    public int deleteSymptomById(@RequestParam String name, @RequestParam String lastName, @RequestParam int age, @RequestBody String[] arr){
+        Set<String> sym = new HashSet<String>();
+        for(String s: arr){
+            sym.add(s);
+        }
+        return medicalService.deleteSymptomById(name, lastName, age, sym);
+    }
 }

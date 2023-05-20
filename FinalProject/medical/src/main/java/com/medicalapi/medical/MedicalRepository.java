@@ -10,5 +10,9 @@ import org.springframework.data.mongodb.repository.Query;
 
 @Repository
 public interface MedicalRepository extends MongoRepository<MedicalDetails,String>{
-    
+    List<MedicalDetails> findByName(String name, String lastName, int age);
+
+    @Query("{$text:{$search:?0,$caseSensitive:false}}")
+    List<MedicalDetails> findTextSearch(String search);
+
 }

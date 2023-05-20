@@ -1,87 +1,66 @@
 package com.medicalapi.medical;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 @Service
 public class MedicalService {
     @Autowired
     MedicalRepository medicalRepository;
 
-   // public Map<String, MedicalSolutions> hMao;
-    //solutions will be empty neeed to get from db first index
-    public String createPerson(MedicalDetails medicalDetails){
-        MedicalDetails.solutions();
-        for (String key: medicalDetails.getSymRes().keySet()) {
-            if(medicalDetails.getSymRes().get(key).equals(null)){
-                for(int i = 0; i<MedicalDetails.solutions.size();i++){
-                    if(key.equals(MedicalDetails.solutions.get(i).getName())){
-                        medicalDetails.getSymRes().put(key,MedicalDetails.solutions.get(i));
-                    }
-                }
+
+    public int createPerson(MedicalDetails medicalDetails){
+        Map<String,MedicalSolutions> symRes = new HashMap<>();
+        for(int i =0; i<MedicalApplication.solutions.size();i++){
+            if(medicalDetails.getSym().contains(MedicalApplication.solutions.get(i).getName())){
+                //medicalDetails.getSymRes().put(MedicalApplication.solutions.get(i).getName(), MedicalApplication.solutions.get(i));
+                symRes.put(MedicalApplication.solutions.get(i).getName(), MedicalApplication.solutions.get(i));
             }
         }
+        medicalDetails.setSymRes(symRes);
         medicalRepository.save(medicalDetails);
-        return "Person created";
+        return 200;
     }
 
     public List<MedicalDetails> getAllDetails(){
         return medicalRepository.findAll();
     }
 
-    public String deleteById(String id){
+    public int deleteById(String id){
         medicalRepository.deleteById(id);
-        return "Deleted User";
+        return 200;
     }
 
-    // public String updateSolutions(MedicalDetails medicalDetails){
-    //     Optional < MedicalDetails > medicalDb = medicalRepository.findById(medicalDetails.getId());
-    //     if (medicalDb.isPresent()) {
-    //         MedicalDetails productUpdate = medicalDb.get();
-    //         productUpdate.setId(medicalDetails.getId());
-    //         productUpdate.setName(medicalDetails.getName());
-    //         productUpdate.setLastName(medicalDetails.getLastName());
-    //         productUpdate.setAge(medicalDetails.getAge());
-    //         productUpdate.setGender(medicalDetails.getGender());
-    //         productUpdate.setSymptoms(medicalDetails.getSymptoms());
-    //         productUpdate.setResults();
-    //         medicalRepository.save(productUpdate);
-    //     }else{
-    //         return "Not found";
-    //     }
-    //     return "";
-    // }
-    
-    // public int updateSolutions(String id, List<MedicalSolutions> solutions){
-    //     Optional < MedicalDetails > medicalDb = medicalRepository.findById(id);
-    //     if(medicalDb.isPresent()){
-    //         MedicalDetails update = medicalDb.get();
-    //         update.setSolutions(solutions);
-    //         medicalRepository.save(update);
-    //     }else{
-    //         return 400;
-    //     }
-    //     return 200;
-    // }
+    public MedicalDetails findPersonById(String id){
+        return medicalRepository.findById(id).get();
+    }
 
-    // public int addSolutions(String id, List<MedicalSolutions> solutions){
-    //     Optional < MedicalDetails > medicalDb = medicalRepository.findById(id);
-    //     if(medicalDb.isPresent()){
-    //         MedicalDetails update = medicalDb.get();
-    //         for(int i =0; i<solutions.size();i++){
-    //             update.getSolutions().add(solutions.get(i));
-    //         }
-    //         update.setSolutions(update.getSolutions());
-    //         medicalRepository.save(update);
-    //     }else{
-    //         return 400;
-    //     }
-    //     return 200;
-    // }
+    public int deleteSymptomById(String name, String lastName, int age, Set<String> sym){
+        System.out.println("hello");
+        List<MedicalDetails> update = medicalRepository.findByName(name,lastName, age);
+        Optional <MedicalDetails> update2 = medicalRepository.findById(update.get(0).getId());
+        MedicalDetails update3 = update2.get();
+        for(String s:sym){
+            // if(update.get(0).getSymRes().containsKey(s)){
+            //     update.get(0).getSymRes().remove(s);
+            // }
+            if(update2.isPresent()){
+                if(update3.getSymRes().containsKey(s)){
+                    update3.getSymRes().remove(s);
+                }
+            }
+        }
+        medicalRepository.save(update3); 
+        return 200;
+    }
+
+  
 
     
 }
