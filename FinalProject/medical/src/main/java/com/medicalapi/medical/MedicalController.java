@@ -16,44 +16,76 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;    
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/api/medical")
 public class MedicalController {
     @Autowired
     MedicalService medicalService;
 
-    @GetMapping("/welcome")
-    public String welcome(){
-        return "welcome";
-    }
+    // @GetMapping("/welcome")
+    // public String welcome(){
+    //     return "welcome";
+    // }
 
+    /**
+     * 
+     * @param medicalDetails passes a class of a person name, lastName, age, gender, and symptoms
+     * @return a http status code of 200 if the person is sucessfully entered in the db, otherwise 400 is sent
+     */
     @PostMapping("/createPerson")
     public int createPerson(@RequestBody MedicalDetails medicalDetails){
         return medicalService.createPerson(medicalDetails);
     }
 
-
+    /**
+     * 
+     * @return all a list of all the people in the database in json format
+     */
     @GetMapping("/getAll")
     public List<MedicalDetails> getAllDetails(){
         return medicalService.getAllDetails();
     }
 
+    /**
+     * 
+     * @param id for the person to be deleted from the db
+     * @return http status code of 200 if the person if sucessfully deleted from the db, otherwise 400 is sent 
+     */
     @DeleteMapping("/deleteById/{id}")
     public int deleteById(@PathVariable String id){
         return medicalService.deleteById(id);
     }
 
+    /**
+     * 
+     * @param id for the person's retrieval of information in the db
+     * @return a person's information in json format
+     */
     @GetMapping("/getById/{id}")
     public MedicalDetails findPersonById(@PathVariable String id){
         return medicalService.findPersonById(id);
     }
     
+    /**
+     * 
+     * @param deleteSymptom is a class that has a person's name, lastName, age, sym(symptom) so that they can be looked up in the db and delete the symptom that they don't have anymore
+     * @return http status code of 200 if the symptom if sucessfully deleted from the db, otherwise 400 is sent  
+     */
     @PutMapping("/deleteSymptomById")
-    public int deleteSymptomById(@RequestParam String name, @RequestParam String lastName, @RequestParam int age, @RequestBody String[] arr){
-        Set<String> sym = new HashSet<String>();
-        for(String s: arr){
-            sym.add(s);
-        }
-        return medicalService.deleteSymptomById(name, lastName, age, sym);
+    public int deleteSymptomById(@RequestBody DeleteSymptom deleteSymptom){
+        return medicalService.deleteSymptomById(deleteSymptom);
     }
+    
+    /**
+     * 
+     * @param search is the symptom the user has 
+     * @return a list of the closest symptoms to the one they have entered
+     */
+    @GetMapping("/regex/{search}")
+    public List<MedicalSolutions> getMatchingStrings(@PathVariable String search){
+        return medicalService.getMatchingStrings(MedicalApplication.solutions, search);
+    }
+    
+    
 }

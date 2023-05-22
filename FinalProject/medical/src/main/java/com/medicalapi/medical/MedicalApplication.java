@@ -48,7 +48,6 @@ public class MedicalApplication {
             solutions.add(new MedicalSolutions("Allergic Rhinitis", "Inflammation of the nasal passages due to an allergic reaction", "Avoiding allergens, over-the-counter antihistamines, nasal sprays, saline nasal irrigation"));
             solutions.add(new MedicalSolutions("Sinusitis", "Inflammation of the sinuses, often causing facial pain or pressure", "Nasal irrigation with saline solution, over-the-counter decongestants, pain relievers, warm compresses"));
             solutions.add(new MedicalSolutions("High Blood Pressure", "Elevated blood pressure levels", "Adopting a healthy diet, regular exercise, reducing sodium intake, taking prescribed medication"));
-			System.out.println(solutions.get(0));
-	}
+        }
 
 }
