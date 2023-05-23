@@ -2,6 +2,7 @@ package com.medicalapi.medical;
 import java.util.regex.Pattern;
 import java.util.ListIterator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,18 @@ public class MedicalService {
         }
       
         return matches;
-      }
+    }
     
+    public List<MedicalSolutions> sortAsc(){
+        for (int i = 0; i < MedicalApplication.solutions.size() - 1; i++) {
+            for (int j = 0; j < MedicalApplication.solutions.size() - i - 1; j++) {
+                if (MedicalApplication.solutions.get(j).getName().compareTo(MedicalApplication.solutions.get(j + 1).getName()) > 0) {
+                    MedicalSolutions temp = MedicalApplication.solutions.get(j);
+                    MedicalApplication.solutions.set(j, MedicalApplication.solutions.get(j + 1));
+                    MedicalApplication.solutions.set(j + 1, temp);
+                }
+            }
+        }
+        return MedicalApplication.solutions;
+    }
 }

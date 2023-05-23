@@ -1,5 +1,6 @@
 package com.medicalapi.medical;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,7 +9,6 @@ public class MedicalApplication {
 	static ArrayList<MedicalSolutions> solutions = new ArrayList<MedicalSolutions>();
 	public static void main(String[] args) {
 		SpringApplication.run(MedicalApplication.class, args);
-			
             solutions.add(new MedicalSolutions("Fever", "An elevated body temperature usually caused by an infection", "Rest, hydration, over-the-counter fever reducers such as acetaminophen or ibuprofen"));
             solutions.add(new MedicalSolutions("Cough", "A reflex action that clears the throat of mucus or foreign irritants", "Over-the-counter cough suppressants, hydration, avoiding triggers"));
             solutions.add(new MedicalSolutions("Sore Throat", "Pain, irritation or itchiness of the throat", "Gargling with warm saltwater, hydration, over-the-counter pain relievers, avoiding irritants"));
@@ -22,12 +22,12 @@ public class MedicalApplication {
             solutions.add(new MedicalSolutions("Joint Pain", "Pain or discomfort in the joints", "Rest, hot or cold compress, over-the-counter pain relievers, gentle exercise or stretches"));
             solutions.add(new MedicalSolutions("Muscle Pain", "Pain or discomfort in the muscles", "Rest, hot or cold compress, over-the-counter pain relievers, gentle exercise or stretches"));
             solutions.add(new MedicalSolutions("Fatigue", "Feeling of exhaustion or lack of energy", "Rest, hydration, healthy diet, exercise, avoiding overexertion"));
-            solutions.add(new MedicalSolutions("Acid Reflux", "A condition where stomach acid flows back into the esophagus", "Avoiding trigger foods, eating smaller meals, avoiding lying down after eating, over-the-counter antacids or acid reducers"));
             solutions.add(new MedicalSolutions("Heartburn", "A burning sensation in the chest caused by stomach acid refluxing into the esophagus", "Avoiding trigger foods, eating smaller meals, avoiding lying down after eating, over-the-counter antacids"));
             solutions.add(new MedicalSolutions("Indigestion", "Discomfort or pain in the upper abdomen, often associated with eating", "Eating smaller meals, avoiding trigger foods, over-the-counter antacids or acid reducers"));
             solutions.add(new MedicalSolutions("Motion Sickness", "Nausea, dizziness, or vomiting caused by motion", "Focusing on a fixed point, fresh air, over-the-counter motion sickness medication, avoiding reading or looking at screens"));
             solutions.add(new MedicalSolutions("Migraine", "A severe headache often accompanied by other symptoms like nausea and sensitivity to light or sound", "Rest in a quiet, dark room, over-the-counter pain relievers (if appropriate), prescription migraine medication (if prescribed), avoiding triggers"));
             solutions.add(new MedicalSolutions("Toothache", "Pain or discomfort in or around a tooth", "Rinsing with warm saltwater, over-the-counter pain relievers, avoiding hot or cold foods, seeking dental care if severe or persistent"));
+            solutions.add(new MedicalSolutions("test", "test", "test"));
             solutions.add(new MedicalSolutions("Gastroenteritis", "Inflammation of the stomach and intestines, often causing diarrhea and vomiting", "Rest, hydration, avoiding solid foods, drinking clear liquids, over-the-counter anti-diarrheal medication (if appropriate), seeking medical attention if severe or persistent"));
             solutions.add(new MedicalSolutions("Urinary Tract Infection (UTI)", "Infection in the urinary system, often causing frequent urination, pain or burning during urination", "Drinking plenty of water, over-the-counter urinary pain relievers, antibiotics (prescription medication), seeking medical attention"));
             solutions.add(new MedicalSolutions("Yeast Infection", "An overgrowth of yeast that causes irritation and discomfort in the vaginal area", "Over-the-counter antifungal creams or suppositories, maintaining good hygiene, wearing breathable underwear, avoiding irritants"));

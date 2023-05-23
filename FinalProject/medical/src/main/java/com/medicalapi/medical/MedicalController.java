@@ -87,5 +87,9 @@ public class MedicalController {
         return medicalService.getMatchingStrings(MedicalApplication.solutions, search);
     }
     
+    @GetMapping("/sortASC")
+    public List<MedicalSolutions> sortAsc(){
+        return medicalService.sortAsc();
+    }
     
 }
