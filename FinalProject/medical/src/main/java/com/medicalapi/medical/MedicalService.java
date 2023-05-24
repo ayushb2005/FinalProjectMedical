@@ -108,4 +108,24 @@ public class MedicalService {
         }
         return MedicalApplication.solutions;
     }
+    public int addSymptomById(DeleteSymptom deleteSymptom){
+        List<MedicalDetails> update = medicalRepository.findByName(deleteSymptom.getName(), deleteSymptom.getLastName(),  deleteSymptom.getAge());
+        Optional <MedicalDetails> update2 = medicalRepository.findById(update.get(0).getId());
+        MedicalDetails update3 = update2.get();
+        
+        for(String s: deleteSymptom.getSym()){
+            update3.getSym().add(s);
+        }
+        for(String s:update3.getSym()){
+            if(!update3.getSymRes().containsKey(s)){
+                for(int i =0; i<MedicalApplication.solutions.size();i++){
+                    if(update3.getSym().contains(MedicalApplication.solutions.get(i).getName())){
+                        update3.getSymRes().put(MedicalApplication.solutions.get(i).getName(),MedicalApplication.solutions.get(i));
+                    }
+                }
+            }
+        }
+        medicalRepository.save(update3);
+        return 200;
+    }
 }

@@ -87,9 +87,22 @@ public class MedicalController {
         return medicalService.getMatchingStrings(MedicalApplication.solutions, search);
     }
     
+    /**
+     * 
+     * @return arraylist of symptoms in ascending order from A to Z
+     */
     @GetMapping("/sortASC")
     public List<MedicalSolutions> sortAsc(){
         return medicalService.sortAsc();
     }
     
+    /**
+     * 
+     * @param deleteSymptom class passed as a parameter so that a person can be found and then their symptoms can be updated in the DB
+     * @return http status code of 200 if the symptom if sucessfully deleted from the db, otherwise 400 is sent  
+     */
+    @PutMapping("/addSymptomById")
+    public int addSymptomById(@RequestBody DeleteSymptom deleteSymptom){
+        return medicalService.addSymptomById(deleteSymptom);
+    }
 }
