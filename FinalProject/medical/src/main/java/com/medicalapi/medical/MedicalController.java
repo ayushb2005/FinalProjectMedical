@@ -1,10 +1,6 @@
 package com.medicalapi.medical;
-
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;    
+import org.springframework.web.bind.annotation.RequestMapping;   
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -22,11 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class MedicalController {
     @Autowired
     MedicalService medicalService;
-
-    // @GetMapping("/welcome")
-    // public String welcome(){
-    //     return "welcome";
-    // }
 
     /**
      * 
@@ -105,4 +95,15 @@ public class MedicalController {
     public int addSymptomById(@RequestBody DeleteSymptom deleteSymptom){
         return medicalService.addSymptomById(deleteSymptom);
     }
+
+    /**
+     * 
+     * @param deleteSymptom
+     * @return
+     */
+    @GetMapping("/display")
+    public Map<String,MedicalSolutions> display(@RequestBody DeleteSymptom deleteSymptom){
+        return medicalService.display(deleteSymptom);
+    }
+ 
 }
