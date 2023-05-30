@@ -98,12 +98,23 @@ public class MedicalController {
 
     /**
      * 
-     * @param deleteSymptom
-     * @return
+     * @param deleteSymptom is passed as a paramater to find their info in db 
+     * @return their symptoms and solutions in a key value pair
      */
-    @GetMapping("/display")
+    @PutMapping("/display")
     public Map<String,MedicalSolutions> display(@RequestBody DeleteSymptom deleteSymptom){
         return medicalService.display(deleteSymptom);
     }
- 
+
+    /**
+     * 
+     * @param name of user to be checked in db
+     * @param lastName of user to be checked in db
+     * @param age of user to be checked in db
+     * @return 200 if user exists in database
+     */
+    @PostMapping("/checkExistingUser")
+    public int checkExistingUser(@RequestBody DeleteSymptom deleteSymptom){
+        return medicalService.checkExistingUser(deleteSymptom);
+    }
 }

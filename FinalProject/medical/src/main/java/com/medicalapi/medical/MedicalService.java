@@ -113,5 +113,32 @@ public class MedicalService {
         }
         return update3.getSymRes();
     }
+
+
+    protected int checkExistingUser(DeleteSymptom deleteSymptom)
+    {
+        try
+        {
+            List<MedicalDetails> update = medicalRepository.findByName(
+                deleteSymptom.getName(),
+                deleteSymptom.getLastName(),
+                deleteSymptom.getAge());
+            Optional<MedicalDetails> update2 = medicalRepository.findById(update.get(0).getId());
+            MedicalDetails update3 = update2.get();
+            if (update3.getName().equals(deleteSymptom.getName()) && update3.getLastName().equals(deleteSymptom.getLastName())
+                && update3.getAge() == deleteSymptom.getAge())
+            {
+                return 200;
+            }
+
+        }
+        catch (Exception e)
+        {
+            // TODO: handle exception
+            System.out.println("NOTHING");
+        }
+        return 404;
+
+    } 
  
 }

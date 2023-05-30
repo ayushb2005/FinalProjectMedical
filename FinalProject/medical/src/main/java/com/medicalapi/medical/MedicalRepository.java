@@ -13,4 +13,5 @@ public interface MedicalRepository extends MongoRepository<MedicalDetails,String
     List<MedicalDetails> findByName(String name, String lastName, int age);
 
 
+
 }
