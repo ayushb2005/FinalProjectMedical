@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;   
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+    This class is for the routes for the API calls and calls the protected methods from MedicalService  
 
+   @author  Ayush Bhanushali
+   @version 5/29/23
+ */
 @RestController
 @RequestMapping("/api/medical")
 public class MedicalController {
@@ -65,16 +70,6 @@ public class MedicalController {
     @PutMapping("/deleteSymptomById")
     public int deleteSymptomById(@RequestBody DeleteSymptom deleteSymptom){
         return medicalService.deleteSymptomById(deleteSymptom);
-    }
-    
-    /**
-     * 
-     * @param search is the symptom the user has 
-     * @return a list of the closest symptoms to the one they have entered
-     */
-    @GetMapping("/regex/{search}")
-    public List<MedicalSolutions> getMatchingStrings(@PathVariable String search){
-        return medicalService.getMatchingStrings(MedicalApplication.solutions, search);
     }
     
     /**

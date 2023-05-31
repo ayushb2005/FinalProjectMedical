@@ -3,7 +3,10 @@ import java.util.ArrayList;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
- * 
+ * This is the main class which has all the main method to start the API server on port 8080 and has the all the solutions to the symptoms 
+ *
+ * @author Ayush Bhanushali
+ * @version 5/27/23
  */
 @SpringBootApplication
 public class MedicalApplication {

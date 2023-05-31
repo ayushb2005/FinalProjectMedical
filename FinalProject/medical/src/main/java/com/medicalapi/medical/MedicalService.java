@@ -1,6 +1,4 @@
 package com.medicalapi.medical;
-import java.util.regex.Pattern;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,11 +6,17 @@ import java.util.Optional;
 import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+/**
+ * This class has all the logic for making changes in the DB and returning http status code for certain requests
+ * @author Ayush Bhanushali
+ * @version 5/31/23
+ */
 @Service
 public class MedicalService {
     @Autowired
     MedicalRepository medicalRepository;
 
+    //This method has the logic to create a new person in the DB
     protected int createPerson(MedicalDetails medicalDetails){
         Map<String,MedicalSolutions> symRes = new HashMap<>();
         for(int i =0; i<MedicalApplication.solutions.size();i++){
@@ -26,20 +30,20 @@ public class MedicalService {
         return 200;
     }
 
+    //this method returns all users in the DB
     protected List<MedicalDetails> getAllDetails(){
         return medicalRepository.findAll();
     }
-
+    //deletes a person from the DB by their id
     protected int deleteById(String id){
         medicalRepository.deleteById(id);
         return 200;
     }
-
+    //finds a persons DB entity by their id
     protected MedicalDetails findPersonById(String id){
         return medicalRepository.findById(id).get();
     }
-
-
+    //deletes a symptom from the sym set and symRes hashmap 
     protected int deleteSymptomById(DeleteSymptom deleteSymptom){
         List<MedicalDetails> update = medicalRepository.findByName(deleteSymptom.getName(), deleteSymptom.getLastName(),  deleteSymptom.getAge());
         Optional <MedicalDetails> update2 = medicalRepository.findById(update.get(0).getId());
@@ -55,20 +59,7 @@ public class MedicalService {
         medicalRepository.save(update3); 
         return 200;
     }
-
-    protected List<MedicalSolutions> getMatchingStrings(ArrayList<MedicalSolutions> list, String regex) {
-        ArrayList<MedicalSolutions> matches = new ArrayList<MedicalSolutions>();
-        Pattern p = Pattern.compile(regex);
-    
-        for (int i =0;i<list.size();i++) {
-          if (p.matcher(list.get(i).getName()).matches()) {
-            matches.add(list.get(i));
-          }
-        }
-      
-        return matches;
-    }
-    
+    //returns a sorted version of the solutions in the MedicalApplcation class
     protected List<MedicalSolutions> sortAsc(){
         for (int i = 0; i < MedicalApplication.solutions.size() - 1; i++) {
             for (int j = 0; j < MedicalApplication.solutions.size() - i - 1; j++) {
@@ -81,6 +72,7 @@ public class MedicalService {
         }
         return MedicalApplication.solutions;
     }
+    //adds symptom to sym set and symRes hashmap
     protected int addSymptomById(DeleteSymptom deleteSymptom){
         List<MedicalDetails> update = medicalRepository.findByName(deleteSymptom.getName(), deleteSymptom.getLastName(),  deleteSymptom.getAge());
         Optional <MedicalDetails> update2 = medicalRepository.findById(update.get(0).getId());
@@ -101,6 +93,7 @@ public class MedicalService {
         medicalRepository.save(update3);
         return 200;
     }
+    //returns the symptoms of a user in alphabetical order in a sorted Map
     protected Map<String, MedicalSolutions> display(DeleteSymptom deleteSymptom) {
         List<MedicalDetails> update = medicalRepository.findByName(deleteSymptom.getName(), deleteSymptom.getLastName(),
                 deleteSymptom.getAge());
@@ -114,7 +107,7 @@ public class MedicalService {
         return update3.getSymRes();
     }
 
-
+    //checks if a user already exists in the DB
     protected int checkExistingUser(DeleteSymptom deleteSymptom)
     {
         try
