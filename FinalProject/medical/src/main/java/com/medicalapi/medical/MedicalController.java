@@ -103,10 +103,8 @@ public class MedicalController {
 
     /**
      * 
-     * @param name of user to be checked in db
-     * @param lastName of user to be checked in db
-     * @param age of user to be checked in db
-     * @return 200 if user exists in database
+     * @param deleteSymptom class used as request body to query name,lastName, and age to check if the user is in the DB
+     * @return an http status code of 200 if the user exists otherwise 400 is returned
      */
     @PostMapping("/checkExistingUser")
     public int checkExistingUser(@RequestBody DeleteSymptom deleteSymptom){
